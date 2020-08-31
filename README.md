@@ -1,19 +1,17 @@
 # GAN-Leaks
 
 [![LICENSE](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/yaoyao-liu/mnemonics/blob/master/LICENSE)
+[![Python](https://img.shields.io/badge/python-3.6-blue.svg?style=flat-square)](https://www.python.org/)
 
 ![](teaser.png)
 
 This repository contains the implementation for ["GAN-Leaks: A Taxonomy of Membership Inference Attacks against Generative Models" (CCS 2020)](https://arxiv.org/abs/1909.03935) 
 
 ## Data Preparation
-We provide implementation for the following dataset: 
-- [CelebA](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) aligned and cropped face dataset. 
-
-Download and split the dataset into training set and hold-out set, and save the png images to two separate folders.
+Download the [CelebA](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) (aligned and cropped face) dataset and split the data into disjoint training (positive query), testing (negative query) and reference set. Save the png images into separate folders.
 
 ## Requirements
-We provide a Tensorflow (used for pggan, wgangp and dcgan) and a Pytorch (used for vaegan) implementation of our attack model. 
+We provide a Tensorflow (used for pggan, wgangp and dcgan) and a Pytorch (used for vaegan) implementation of our attack models. 
 The environments can be set up by using [Anaconda](https://www.anaconda.com/download/) with the following commands.
 -   **Tensorflow:**
     ```bash
@@ -45,7 +43,7 @@ We pre-train the following victim GAN Models.
         cd gan_models/pggan
         python dataset_tool.py create_celeba_subset \
         "Directory for saving the output .tfrecords files" \
-        "Training dataset directory containing the png images"
+        "Training data directory containing the png images"
         ```
         
     - **Training:**  
@@ -77,7 +75,7 @@ We pre-train the following victim GAN Models.
     - **Generating samples:**
         ```bash
         cd gan_models/wgangp
-        python sample.py --model_dir "Directory of model checkpoints"  
+        python sample.py --model_dir "Directory of the model checkpoints"  
         ```
  
 - [dcgan (Deep Convolutional GAN)](https://github.com/carpedm20/DCGAN-tensorflow)
@@ -90,12 +88,14 @@ We pre-train the following victim GAN Models.
     - **Training:**
         ```bash
         cd gan_models/dcgan
-        python main.py --data_dir "Directory of training data" 
+        python main.py --data_dir "Directory of the training data" 
         ```
       
     - **Generating samples:**
         ```bash
         cd gan_models/dcgan
+        python main.py --app gen --checkpoint_dir "Directory of the model checkpoints"
+        ```
       
 - [vaegan (VAE GAN)](https://arxiv.org/abs/1909.12598)
     - **Requirements:** \
@@ -107,12 +107,12 @@ We pre-train the following victim GAN Models.
     - **Training:**
         ```bash
         cd gan_models/vaegan
-        python train.py --data_dir "Directory of training data"
+        python train.py --data_dir "Directory of the training data"
         ```
     - **Generating samples:**
         ```bash
         cd gan_models/vaegan
-        python sample.py --model_dir "Directory of model checkpoints"
+        python sample.py --model_dir "Directory of the model checkpoints"
         ```
       
       
@@ -136,7 +136,7 @@ We pre-train the following victim GAN Models.
     -name "Name of the output folder" \
     -posdir "Directory of the positive (training) query png images" \
     -negdir "Directory of the negative (testing) query png images" \ 
-    -gdir "Directory of the gan model file" \
+    -gdir "Directory of the gan model checkpoints" \
     -init nn \
     -ndir "Directory of the fbb results" 
     ```
@@ -149,12 +149,12 @@ We pre-train the following victim GAN Models.
     -name "Name of the output folder" \
     -posdir "Directory of the positive (training) query png images" \
     -negdir "Directory of the negative (testing) query png images" \ 
-    -gdir "Directory of the gan model file" 
+    -gdir "Directory of the gan model checkpoints" 
     ```
     ```wb_***.py``` should be selected according to the type of victim gan model.
     
  - **Attack calibration:** \
-    Train a reference model and perform the attacks on the reference model.
+    Train a reference model and perform the attacks on the reference model. Evaluate the calibrated attack by providing the ```"-rdir"``` argument (see below).
  
  
 ## Evaluation
@@ -174,7 +174,7 @@ Pre-trained victim model checkpoints can be downloaded using the links below. Sp
 
 | |pggan   | wgangp | dcgan | vaegan|
 |---|---|---|---|---|
-|victim model| [link](https://drive.google.com/file/d/1GZ7d2gydv34toz9avLiFp3PGubfgg1_y/view?usp=sharing) | [link](https://drive.google.com/file/d/1DUii3lFv2ynm3pV1V3A5lmWyULowp4MP/view?usp=sharing) | [link](https://drive.google.com/file/d/1IT-kNsUvYtzMIOpuDkUHsbAMH7Ca4V1g/view?usp=sharing) | [link](https://drive.google.com/file/d/1hCcl7SahfcQ9HCDyfhmESs-IvGTCgdaE/view?usp=sharing)|
+|victim model| [link](https://drive.google.com/file/d/1GZ7d2gydv34toz9avLiFp3PGubfgg1_y/view?usp=sharing) | [link](https://drive.google.com/file/d/1DUii3lFv2ynm3pV1V3A5lmWyULowp4MP/view?usp=sharing) | [link](https://drive.google.com/file/d/1IT-kNsUvYtzMIOpuDkUHsbAMH7Ca4V1g/view?usp=sharing) | [link](https://drive.google.com/file/d/1AMgd8j8larwQ_qZrt3UfGqxw4t23CKjO/view?usp=sharing)|
     
 
 ## Citation
