@@ -25,9 +25,7 @@ def plot_hist(pos_dist, neg_dist, save_file):
     plt.tight_layout()
     plt.xlabel('distance')
     plt.ylabel('normalized frequency')
-    plt.title('dist -(ref)')
     plt.savefig(save_file)
-    plt.close()
     plt.close()
 
 
