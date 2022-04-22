@@ -179,7 +179,7 @@ Pre-trained victim model checkpoints can be downloaded using the links below. Sp
 
 ## Citation
 ```bibtex
-@inproceedings{chen20ccs,
+@inproceedings{chen20ganleaks,
 author = {Dingfan Chen and Ning Yu and Yang Zhang and Mario Fritz},
 title = {GAN-Leaks: A Taxonomy of Membership Inference Attacks against Generative Models},
 booktitle = {ACM Conference on Computer and Communications Security (CCS)},
